@@ -127,7 +127,7 @@ public class Main {
                 List<ResultLine> resultLines = new ArrayList<>();
                 for (Match match:
                      matches) {
-                    if (resultLines.contains(match.getTeam1())){
+                    if (resultLines.contains(match.getTeam1().getId())){
                         ResultLine resultLine1 = this.getResultLine(resultLines,match.getTeam1());
                         if (match.getGoalsTeam1() > match.getGoalsTeam2()){
                             resultLine1.setPoints(resultLine1.getPoints() + 3);
@@ -144,7 +144,7 @@ public class Main {
                         }
                     }
 
-                    if (resultLines.contains(match.getTeam2())){
+                    if (resultLines.contains(match.getTeam2().getId())){
                         ResultLine resultLine1 = this.getResultLine(resultLines,match.getTeam2());
                         if (match.getGoalsTeam2() > match.getGoalsTeam1()){
                             resultLine1.setPoints(resultLine1.getPoints() + 3);

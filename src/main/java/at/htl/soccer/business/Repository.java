@@ -13,10 +13,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 
 /**
@@ -33,6 +30,7 @@ public class Repository {
     public Repository() {
         this.client = ClientBuilder.newClient();
         this.target = client.target("https://www.openligadb.de/api/getmatchdata/bl1/2018");
+        matches = new HashSet<>();
     }
 
     //region Getter and Setter
@@ -64,7 +62,10 @@ public class Repository {
      * @return JsonArray mit allen Ergebnissen
      */
     public JsonArray loadStatisticsFromServer(int matchday) {
-        return null;
+        Response response = this.target.path(Integer.toString(matchday)).request(MediaType.APPLICATION_JSON).get();
+        JsonArray matches = response.readEntity(JsonArray.class);
+        this.setMatchesJson(matches);
+        return matches;
     }
 
     /**
@@ -75,8 +76,46 @@ public class Repository {
      *
      */
     public void createMatchListFromJson() {
+        List<Team> teams = new ArrayList<>();
+        for (JsonValue value:
+             this.matchesJson) {
+            JsonObject jsonObject = value.asJsonObject();
+            JsonObject firstTeamJson = jsonObject.getJsonObject("Team1");
+            JsonObject secondTeamJson = jsonObject.getJsonObject("Team2");
 
+            //Two Teams as Objects
+            Team firstTeam = new Team(new Long(firstTeamJson.getInt("TeamId")), firstTeamJson.getString("TeamName"), firstTeamJson.getString("ShortName"));
+            Team secondTeam = new Team(new Long(secondTeamJson.getInt("TeamId")), secondTeamJson.getString("TeamName"), secondTeamJson.getString("ShortName"));
+            if (!teams.contains(firstTeam)){
+                teams.add(firstTeam);
+            }
+            if(!teams.contains(secondTeam)){
+                teams.add(secondTeam);
+            }
+            //Match as Object
+            JsonArray matchResult = jsonObject.getJsonArray("MatchResults");
+            JsonObject endResult = matchResult.getJsonObject(0);
+            int firstTeamPoints = endResult.getInt("PointsTeam1");
+            int secondTeamPoints = endResult.getInt("PointsTeam2");
+
+            JsonObject group = jsonObject.getJsonObject("Group");
+            int matchday = group.getInt("GroupOrderID");
+
+            String str = jsonObject.getString("MatchDateTime");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
+            LocalDateTime dateTime = LocalDateTime.parse(str, formatter);
+            Match match = new Match(new Long(jsonObject.getInt("MatchID")), this.getTeam(teams, firstTeam), this.getTeam(teams, secondTeam), firstTeamPoints, secondTeamPoints, matchday, dateTime);
+            this.getMatches().add(match);
+        }
     }
 
-
+    private Team getTeam(List<Team> teams, Team teamObject) {
+        for (Team team:
+             teams) {
+            if (team == teamObject){
+                return team;
+            }
+        }
+        return null;
+    }
 }

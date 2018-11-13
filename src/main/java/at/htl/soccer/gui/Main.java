@@ -1,14 +1,16 @@
 package at.htl.soccer.gui;
 
 import at.htl.soccer.business.Repository;
-import at.htl.soccer.db.MatchDao;
-import at.htl.soccer.db.TeamDao;
+import at.htl.soccer.dbx.MatchDao;
+import at.htl.soccer.dbx.TeamDao;
 import at.htl.soccer.model.Match;
+import at.htl.soccer.model.ResultLine;
+import at.htl.soccer.model.Team;
 import com.cedarsoftware.util.io.JsonWriter;
 
 import javax.json.JsonArray;
-import java.util.Scanner;
-import java.util.Set;
+import javax.json.JsonValue;
+import java.util.*;
 
 public class Main {
 
@@ -44,7 +46,6 @@ public class Main {
      * usw
      */
     public void mainMenu() {
-
             System.out.println("***************************************************");
             System.out.println();
             System.out.println("            Statistik deutsche Bundesliga");
@@ -63,6 +64,112 @@ public class Main {
             String input = scanner.nextLine();
             System.out.println();
 
+            if(repository == null){
+                repository = new Repository();
+            }
+            if(matchDao == null){
+                matchDao = new MatchDao();
+                matchDao.dropTable();
 
+            }
+            if(teamDao == null){
+                teamDao = new TeamDao();
+                teamDao.dropTable();
+            }
+
+            if(input.equals("1")){
+                this.repository.loadStatisticsFromServer(matchday);
+                JsonArray matches = repository.getMatchesJson();
+                String formatted = JsonWriter.formatJson(matches.toString());
+                System.out.println(formatted);
+                this.mainMenu();
+            }
+            else if(input.equals("2")){
+                repository.createMatchListFromJson();
+                for (Match match:
+                     repository.getMatches()) {
+                    System.out.println(match.toString());
+                }
+                this.mainMenu();
+            }
+            else if(input.equals("3")) {
+                if (repository.getMatchesJson() == null){
+                    System.out.println("Datenbank ist leer, downloaden Sie zuerst die Spiele");
+                }else{
+                    Set<Match> matches = repository.getMatches();
+                    teamDao.dropTable();
+                    matchDao.dropTable();
+                    teamDao.createTable();
+                    matchDao.createTable();
+
+                    for (Match match:
+                         matches) {
+                        matchDao.insert(match);
+                    }
+                }
+                this.mainMenu();
+            }
+            else if(input.equals("4")) {
+//                this.repository = new Repository();
+//
+//                for (int i = 0; i < 11; i++) {
+//                        this.repository.loadStatisticsFromServer(i);
+//                }
+//                repository.createMatchListFromJson();
+//
+//                Set<Match> matches = repository.getMatches();
+//                List<Team> teams = new ArrayList<>();
+//                for (Match match:
+//                     matches) {
+//                    if (!teams.contains(match.getTeam1()))teams.add(match.getTeam1());
+//                    if (!teams.contains(match.getTeam2()))teams.add(match.getTeam2());
+//                }
+//                List<ResultLine> resultLines = new ArrayList<>();
+//                for (Match match:
+//                     matches) {
+//                    if (resultLines.contains(match.getTeam1())){
+//                        ResultLine resultLine1 = this.getResultLine(resultLines,match.getTeam1());
+//                        if (match.getGoalsTeam1() > match.getGoalsTeam2()){
+//                            resultLine1.setPoints(resultLine1.getPoints() + 3);
+//                        }
+//                        if(match.getGoalsTeam1() < match.getGoalsTeam2()){
+//
+//                        }
+//                    }else{
+//                        resultLines.add(new ResultLine(match.getTeam1(), match.getGoalsTeam1()));
+//                    }
+//
+//                    if (resultLines.contains(match.getTeam2())){
+//                        ResultLine resultLine2 = this.getResultLine(resultLines,match.getTeam2());
+//                    }else{
+//                        resultLines.add(new ResultLine(match.getTeam2(), match.getGoalsTeam2()));
+//                    }
+//
+//                    Collections.sort(resultLines);
+//                    for (ResultLine rs:
+//                         resultLines) {
+//                        System.out.println(rs.getTeam().getTeamName() );
+//                    }
+//                }
+                this.mainMenu();
+            }
+            else if(input.equals("5")){
+                System.out.print("Geben Sie einen neuen Spieltag ein: ");
+                String newNumberString = scanner.nextLine();
+                matchday = Integer.parseInt(newNumberString);
+                this.repository.loadStatisticsFromServer(matchday);
+                this.repository.createMatchListFromJson();
+                this.mainMenu();
+            }
+    }
+
+    private ResultLine getResultLine(List<ResultLine> resultLines, Team team1) {
+        for (ResultLine rs:
+             resultLines) {
+            if (rs.getTeam().getId() == team1.getId()){
+                return rs;
+            }
+        }
+        return null;
     }
 }

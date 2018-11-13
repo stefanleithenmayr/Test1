@@ -8,5 +8,12 @@
       <jdbc-driver>org.apache.derby.jdbc.ClientDriver</jdbc-driver>
       <jdbc-url>jdbc:derby://localhost:1527/db</jdbc-url>
     </data-source>
+    <data-source source="LOCAL" name="db@localhost" uuid="4e2766a5-5d06-4a7d-9e10-82eeae923242">
+      <driver-ref>derby.remote</driver-ref>
+      <synchronize>true</synchronize>
+      <configured-by-url>true</configured-by-url>
+      <jdbc-driver>org.apache.derby.jdbc.ClientDriver</jdbc-driver>
+      <jdbc-url>jdbc:derby://localhost:1527/db</jdbc-url>
+    </data-source>
   </component>
 </project>

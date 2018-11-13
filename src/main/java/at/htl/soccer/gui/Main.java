@@ -110,47 +110,63 @@ public class Main {
                 this.mainMenu();
             }
             else if(input.equals("4")) {
-//                this.repository = new Repository();
-//
-//                for (int i = 0; i < 11; i++) {
-//                        this.repository.loadStatisticsFromServer(i);
-//                }
-//                repository.createMatchListFromJson();
-//
-//                Set<Match> matches = repository.getMatches();
-//                List<Team> teams = new ArrayList<>();
-//                for (Match match:
-//                     matches) {
-//                    if (!teams.contains(match.getTeam1()))teams.add(match.getTeam1());
-//                    if (!teams.contains(match.getTeam2()))teams.add(match.getTeam2());
-//                }
-//                List<ResultLine> resultLines = new ArrayList<>();
-//                for (Match match:
-//                     matches) {
-//                    if (resultLines.contains(match.getTeam1())){
-//                        ResultLine resultLine1 = this.getResultLine(resultLines,match.getTeam1());
-//                        if (match.getGoalsTeam1() > match.getGoalsTeam2()){
-//                            resultLine1.setPoints(resultLine1.getPoints() + 3);
-//                        }
-//                        if(match.getGoalsTeam1() < match.getGoalsTeam2()){
-//
-//                        }
-//                    }else{
-//                        resultLines.add(new ResultLine(match.getTeam1(), match.getGoalsTeam1()));
-//                    }
-//
-//                    if (resultLines.contains(match.getTeam2())){
-//                        ResultLine resultLine2 = this.getResultLine(resultLines,match.getTeam2());
-//                    }else{
-//                        resultLines.add(new ResultLine(match.getTeam2(), match.getGoalsTeam2()));
-//                    }
-//
-//                    Collections.sort(resultLines);
-//                    for (ResultLine rs:
-//                         resultLines) {
-//                        System.out.println(rs.getTeam().getTeamName() );
-//                    }
-//                }
+                this.repository = new Repository();
+
+                for (int i = 0; i < 11; i++) {
+                        this.repository.loadStatisticsFromServer(i);
+                }
+                repository.createMatchListFromJson();
+
+                Set<Match> matches = repository.getMatches();
+                List<Team> teams = new ArrayList<>();
+                for (Match match:
+                     matches) {
+                    if (!teams.contains(match.getTeam1()))teams.add(match.getTeam1());
+                    if (!teams.contains(match.getTeam2()))teams.add(match.getTeam2());
+                }
+                List<ResultLine> resultLines = new ArrayList<>();
+                for (Match match:
+                     matches) {
+                    if (resultLines.contains(match.getTeam1())){
+                        ResultLine resultLine1 = this.getResultLine(resultLines,match.getTeam1());
+                        if (match.getGoalsTeam1() > match.getGoalsTeam2()){
+                            resultLine1.setPoints(resultLine1.getPoints() + 3);
+                        }
+                        if(match.getGoalsTeam1() == match.getGoalsTeam2()){
+                            resultLine1.setPoints(resultLine1.getPoints() + 1);
+                        }
+                    }else{
+                        if (match.getGoalsTeam1() > match.getGoalsTeam2()){
+                            resultLines.add(new ResultLine(match.getTeam1(), 3));
+                        }
+                        if(match.getGoalsTeam1() == match.getGoalsTeam2()){
+                            resultLines.add(new ResultLine(match.getTeam1(), 1));
+                        }
+                    }
+
+                    if (resultLines.contains(match.getTeam2())){
+                        ResultLine resultLine1 = this.getResultLine(resultLines,match.getTeam2());
+                        if (match.getGoalsTeam2() > match.getGoalsTeam1()){
+                            resultLine1.setPoints(resultLine1.getPoints() + 3);
+                        }
+                        if(match.getGoalsTeam2() == match.getGoalsTeam1()){
+                            resultLine1.setPoints(resultLine1.getPoints() + 1);
+                        }
+                    }else{
+                        if (match.getGoalsTeam2() > match.getGoalsTeam1()){
+                            resultLines.add(new ResultLine(match.getTeam1(), 3));
+                        }
+                        if(match.getGoalsTeam2() == match.getGoalsTeam1()){
+                            resultLines.add(new ResultLine(match.getTeam2(), 1));
+                        }
+                    }
+                }
+
+                Collections.sort(resultLines);
+                for (ResultLine rs:
+                        resultLines) {
+                    System.out.println(rs.getTeam().getTeamName() + " " + rs.getPoints());
+                }
                 this.mainMenu();
             }
             else if(input.equals("5")){

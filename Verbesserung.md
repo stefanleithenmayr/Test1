@@ -1,9 +1,9 @@
 # Erweiterung & Verbesserung von Stefan Leithenmayr (Katalognummer 12)
 
-##Erweiterung
+## Erweiterung
 <div>
     <p>Erweiterung, sodass keine Matches doppelt eingefügt werden</p>
-    <img src="./images/Extension1.png" align="left" border="1px" width="90%" height="auto">
+    <img src="./images/Extension1.png" align="left" border="1px" width="50%" height="auto">
     <img src="./images/Extension2.png" align="left" border="1px" width="50%" height="auto">
     <br clear="all">
 </div>

@@ -26,6 +26,19 @@
     <br clear="all">
 </div>
 
+## Falsche Sortierung
+<div>
+    <p>Sortierung absteigend statt aufsteigend!</p>
+    <img src="./images/FalseSorting.png" align="left" border="1px" width="60%" height="auto">
+    <br clear="all">
+</div>
+
+## Forschleife verändern
+<div>
+    <img src="./images/ForLoop_Edit.png" align="left" border="1px" width="60%" height="auto">
+    <br clear="all">
+</div>
+
 ## Verwendung einer Variable und kein mehrfach Aufruf
 
 <div>
@@ -38,12 +51,3 @@
     <img src="./images/MultipleVariables_After.png" align="left" border="1px" width="60%" height="auto">
     <br clear="all">
 </div>
-
-## Falsche Sortierung
-<div>
-    <p>Sortierung absteigend statt aufsteigend!</p>
-    <img src="./images/FalseSorting.png" align="left" border="1px" width="60%" height="auto">
-    <br clear="all">
-</div>
-
-

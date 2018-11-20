@@ -3,7 +3,11 @@
 ## Verschieben der Initialisierung in den Konstruktor
 
 Code alt:
-![DaoInitBefore](./images/DaoInit_Before.png)
+<div>
+    <p>Code alt:</p>
+    <img src="./images/DaoInit_Before.png" align="left" border="1px" width="50%" height="auto">
+    <br clear="all">
+</div>
 
 Code neu: 
 ![DaoInitAfter](./images/DaoInit_After.png)

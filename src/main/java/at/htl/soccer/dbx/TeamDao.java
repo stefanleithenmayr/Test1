@@ -3,6 +3,7 @@ package at.htl.soccer.dbx;
 import at.htl.soccer.model.Team;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -53,6 +54,11 @@ public class TeamDao extends AbstractDao {
      * @param team zu soeicherndes Objekt
      */
     public void insert(Team team) {
+
+        if (IsTeamInDB(team)){
+            return;
+        }
+
         String sql = "insert into bl_team (id, team_name, short_name) " +
                 "VALUES(?,?,?)";
 
@@ -68,4 +74,20 @@ public class TeamDao extends AbstractDao {
         }
     }
 
+    private boolean IsTeamInDB(Team team) {
+        String sql = "select * from bl_team";
+
+        try {
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            ResultSet rs = pstmt.executeQuery();
+            while(rs.next()){
+                if (rs.getLong(1) == team.getId()){
+                    return true;
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+        return false;
+    }
 }

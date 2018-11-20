@@ -43,6 +43,6 @@ public class ResultLine implements Comparable<ResultLine>{
 
     @Override
     public int compareTo(ResultLine o) {
-        return this.points.compareTo(o.points);
+        return this.points.compareTo(o.points) * (-1); //(*-1) hinzugefügt
     }
 }

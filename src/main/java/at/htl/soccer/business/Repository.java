@@ -105,7 +105,9 @@ public class Repository {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
             LocalDateTime dateTime = LocalDateTime.parse(str, formatter);
             Match match = new Match(new Long(jsonObject.getInt("MatchID")), this.getTeam(teams, firstTeam), this.getTeam(teams, secondTeam), firstTeamPoints, secondTeamPoints, matchday, dateTime);
-            this.getMatches().add(match);
+            if(!matches.contains(match)){ //TODO: If für Erweiterung
+                this.getMatches().add(match);
+            }
         }
     }
 

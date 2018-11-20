@@ -23,6 +23,15 @@ public class Main {
 
 
     public Main() {
+        //TODO: Konstruktor verwenden
+        repository = new Repository();
+        matchDao = new MatchDao();
+        matchDao.dropTable();
+        teamDao = new TeamDao();
+        teamDao.dropTable();
+
+        teamDao.createTable();
+        matchDao.createTable();
     }
 
     public static void main(String[] args) {
@@ -64,19 +73,6 @@ public class Main {
             String input = scanner.nextLine();
             System.out.println();
 
-            if(repository == null){
-                repository = new Repository();
-            }
-            if(matchDao == null){
-                matchDao = new MatchDao();
-                matchDao.dropTable();
-
-            }
-            if(teamDao == null){
-                teamDao = new TeamDao();
-                teamDao.dropTable();
-            }
-
             if(input.equals("1")){
                 this.repository.loadStatisticsFromServer(matchday);
                 JsonArray matches = repository.getMatchesJson();
@@ -97,10 +93,6 @@ public class Main {
                     System.out.println("Datenbank ist leer, downloaden Sie zuerst die Spiele");
                 }else{
                     Set<Match> matches = repository.getMatches();
-                    teamDao.dropTable();
-                    matchDao.dropTable();
-                    teamDao.createTable();
-                    matchDao.createTable();
 
                     for (Match match:
                          matches) {
@@ -112,10 +104,10 @@ public class Main {
             else if(input.equals("4")) {
                 this.repository = new Repository();
 
-                for (int i = 0; i < 11; i++) {
-                        this.repository.loadStatisticsFromServer(i);
+                for (int i = 0; i < 12; i++) { //TODO: Index erhöhen
+                    this.repository.loadStatisticsFromServer(i);
+                    repository.createMatchListFromJson(); //TODO: Verschoben in die For Loop
                 }
-                repository.createMatchListFromJson();
 
                 Set<Match> matches = repository.getMatches();
                 List<Team> teams = new ArrayList<>();
@@ -127,8 +119,8 @@ public class Main {
                 List<ResultLine> resultLines = new ArrayList<>();
                 for (Match match:
                      matches) {
-                    if (resultLines.contains(match.getTeam1().getId())){
-                        ResultLine resultLine1 = this.getResultLine(resultLines,match.getTeam1());
+                    ResultLine resultLine1 = this.getResultLine(resultLines, match.getTeam1()); //TODO: Verwendung einer Variable --> kein mehrfacher Aufruf der getResultLine Methode
+                    if (resultLine1 != null){ //TODO If Bedingung verändert
                         if (match.getGoalsTeam1() > match.getGoalsTeam2()){
                             resultLine1.setPoints(resultLine1.getPoints() + 3);
                         }
@@ -144,8 +136,8 @@ public class Main {
                         }
                     }
 
-                    if (resultLines.contains(match.getTeam2().getId())){
-                        ResultLine resultLine1 = this.getResultLine(resultLines,match.getTeam2());
+                    resultLine1 = this.getResultLine(resultLines, match.getTeam2());
+                    if (resultLine1 != null){ //TODO If Bedingung verändert
                         if (match.getGoalsTeam2() > match.getGoalsTeam1()){
                             resultLine1.setPoints(resultLine1.getPoints() + 3);
                         }
@@ -154,7 +146,7 @@ public class Main {
                         }
                     }else{
                         if (match.getGoalsTeam2() > match.getGoalsTeam1()){
-                            resultLines.add(new ResultLine(match.getTeam1(), 3));
+                            resultLines.add(new ResultLine(match.getTeam2(), 3)); //TODO Veränderung auf Team2
                         }
                         if(match.getGoalsTeam2() == match.getGoalsTeam1()){
                             resultLines.add(new ResultLine(match.getTeam2(), 1));
@@ -182,7 +174,7 @@ public class Main {
     private ResultLine getResultLine(List<ResultLine> resultLines, Team team1) {
         for (ResultLine rs:
              resultLines) {
-            if (rs.getTeam().getId() == team1.getId()){
+            if (rs.getTeam().equals(team1)){ //TODO: If Bedingung verändert sodass die überschriebene Equals Methode verwendet wird
                 return rs;
             }
         }

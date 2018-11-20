@@ -102,5 +102,17 @@ public class Match {
                 + getTeam2().getShortName() + " " + getGoalsTeam2();
     }
 
+    //TODO: Erweiterung - kein mehrmaliges Einfügen mehr möglich
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Match match = (Match) o;
+        return Objects.equals(id, match.id);
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }

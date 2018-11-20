@@ -60,6 +60,10 @@ public class MatchDao extends AbstractDao {
      */
     public void insert(Match match) {
 
+        if(IsMatchInDB(match)){
+            return;
+        }
+
         teamDao.insert(match.getTeam1());
         teamDao.insert(match.getTeam2());
 
@@ -82,4 +86,20 @@ public class MatchDao extends AbstractDao {
         }
     }
 
+    private boolean IsMatchInDB(Match match) {
+        String sql = "select * from bl_match";
+
+        try {
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            ResultSet rs = pstmt.executeQuery();
+            while(rs.next()){
+                if (rs.getLong(1) == match.getId()){
+                    return true;
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+        return false;
+    }
 }

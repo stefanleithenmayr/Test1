@@ -44,7 +44,6 @@
 
 ## Anpassung der Sortierung
 <div>
-    <p>Sortierung absteigend statt aufsteigend!</p>
     <img src="./images/FalseSorting.png" align="left" border="1px" width="60%" height="auto">
     <br clear="all">
 </div>

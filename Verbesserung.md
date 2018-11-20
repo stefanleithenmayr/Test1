@@ -35,7 +35,7 @@
 
 ## Forschleife verändern
 <div>
-    <img src="./images/ForLoop_Edit.png" align="left" border="1px" width="60%" height="auto">
+    <img src="./images/ForLoop_Edit.PNG" align="left" border="1px" width="60%" height="auto">
     <br clear="all">
 </div>
 

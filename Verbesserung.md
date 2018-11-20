@@ -10,16 +10,16 @@
 </div>
 
 <div>
-    <p>Erweiterung, sodass keine Matches doppelt in die Datenbank eingefügt werden (Klasse: TeamDao)</p>
-    <img src="./images/Extension3.png" align="left" border="1px" width="50%" height="auto">
+    <p>Erweiterung, sodass keine Matches doppelt in die Datenbank eingefügt werden (Klasse: MatchDao)</p>
+    <img src="./images/Extension3.png" align="left" border="1px" width="22%" height="auto">
     <br clear="all">
     <img src="./images/Extension4.png" align="left" border="1px" width="50%" height="auto">
     <br clear="all">
 </div>
 
 <div>
-    <p>Erweiterung, sodass keine Matches doppelt in die Datenbank eingefügt werden (Klasse: MatchDao)</p>
-    <img src="./images/Extension5.png" align="left" border="1px" width="50%" height="auto">
+    <p>Erweiterung, sodass keine Teams doppelt in die Datenbank eingefügt werden (Klasse: TeamDao)</p>
+    <img src="./images/Extension5.png" align="left" border="1px" width="22%" height="auto">
     <br clear="all">
     <img src="./images/Extension6.png" align="left" border="1px" width="50%" height="auto">
     <br clear="all">
@@ -42,14 +42,13 @@
     <br clear="all">
 </div>
 
-## Falsche Sortierung
+## Anpassung der Sortierung
 <div>
-    <p>Sortierung absteigend statt aufsteigend!</p>
     <img src="./images/FalseSorting.png" align="left" border="1px" width="60%" height="auto">
     <br clear="all">
 </div>
 
-## Forschleife verändern
+## Änderung in der Forschleife
 <div>
     <img src="./images/ForLoop_Edit.PNG" align="left" border="1px" width="60%" height="auto">
     <br clear="all">

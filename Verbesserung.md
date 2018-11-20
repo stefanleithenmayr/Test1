@@ -16,3 +16,16 @@
     <img src="./images/ChangedIfCondition.png" align="left" border="1px" width="90%" height="auto">
     <br clear="all">
 </div>
+
+## Verwendung einer Variable und kein mehrfach Aufruf
+
+<div>
+    <p>Wird verändert da die Methode getResultLine bzw. .Contains ansonsten mehrfach aufgerufen wird und jetzt ruft man die Methode nur zweimal auf und .Contains wird nicht mehr benötigt</p>
+    <br clear="all">
+    <p>Alter Code:</p>
+    <img src="./images/MultipleVariables_Before.png" align="left" border="1px" width="100%" height="auto">
+    <br clear="all">
+    <p>Neuer Code:</p>
+    <img src="./images/MultipleVariables_After.png" align="left" border="1px" width="100%" height="auto">
+    <br clear="all">
+</div>

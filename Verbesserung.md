@@ -3,10 +3,7 @@
 ## Erweiterung
 <div>
     <p>Erweiterung, sodass keine Matches doppelt eingefügt werden</p>
-    <p>Klasse Match</p>
-    <br clear="all">
     <img src="./images/Extension1.png" align="left" border="1px" width="50%" height="auto">
-    <p>Klasse Repository</p>
     <br clear="all">
     <img src="./images/Extension2.png" align="left" border="1px" width="50%" height="auto">
     <br clear="all">

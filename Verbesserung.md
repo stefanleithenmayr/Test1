@@ -11,7 +11,7 @@
 
 <div>
     <p>Erweiterung, sodass keine Matches doppelt in die Datenbank eingefügt werden (Klasse: TeamDao)</p>
-    <img src="./images/Extension3.png" align="left" border="1px" width="50%" height="auto">
+    <img src="./images/Extension3.png" align="left" border="1px" width="25%" height="auto">
     <br clear="all">
     <img src="./images/Extension4.png" align="left" border="1px" width="50%" height="auto">
     <br clear="all">
@@ -19,7 +19,7 @@
 
 <div>
     <p>Erweiterung, sodass keine Matches doppelt in die Datenbank eingefügt werden (Klasse: MatchDao)</p>
-    <img src="./images/Extension5.png" align="left" border="1px" width="50%" height="auto">
+    <img src="./images/Extension5.png" align="left" border="1px" width="25%" height="auto">
     <br clear="all">
     <img src="./images/Extension6.png" align="left" border="1px" width="50%" height="auto">
     <br clear="all">
